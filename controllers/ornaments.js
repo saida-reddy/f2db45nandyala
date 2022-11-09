@@ -32,3 +32,16 @@ exports.ornaments_delete = function(req, res) {
 exports.ornaments_update_put = function(req, res) { 
     res.send('NOT IMPLEMENTED: Ornaments update PUT' + req.params.id); 
 }; 
+
+ //VIEWS 
+// Handle a show all view 
+exports.ornaments_view_all_Page = async function(req, res) { 
+    try{ 
+       theOrnaments  = await Ornaments.find(); 
+        res.render('ornaments', { title: 'Ornaments Search Results', results: theOrnaments }); 
+    } 
+    catch(err){ 
+        res.status(500); 
+        res.send(`{"error": ${err}}`); 
+    }   
+}; 
