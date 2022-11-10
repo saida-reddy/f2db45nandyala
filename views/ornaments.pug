@@ -2,7 +2,7 @@ extends layout
 
 block content
   h1= title
-  - var results = [{"OrnamentType":"Gold","OrnamentCost":500,"OrnamentStrength":"High"},{"OrnamentType":"Platinum","OrnamentCost":700,"OrnamentStrength":"good"},{"OrnamentType":"Diamond","OrnamentCost":1000,"OrnamentStrength":"veryStrong"}];
+  - var results = results;
   div(class="container-fluid")
     div(class="row")
     each item in results
