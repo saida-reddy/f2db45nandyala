@@ -14,8 +14,15 @@ exports.ornaments_list = async function(req, res) {
  
  
 // for a specific Costume. 
-exports.ornaments_detail = function(req, res) { 
-    res.send('NOT IMPLEMENTED: Ornaments detail: ' + req.params.id); 
+exports.ornaments_detail = async function(req, res) { 
+    console.log("detail"  + req.params.id) 
+    try { 
+        result = await Ornaments.findById( req.params.id) 
+        res.send(result) 
+    } catch (error) { 
+        res.status(500) 
+        res.send(`{"error": document for id ${req.params.id} not found`); 
+    } 
 }; 
  
 // Handle Costume create on POST. 
@@ -45,8 +52,24 @@ exports.ornaments_delete = function(req, res) {
 }; 
  
 // Handle Costume update form on PUT. 
-exports.ornaments_update_put = function(req, res) { 
-    res.send('NOT IMPLEMENTED: Ornaments update PUT' + req.params.id); 
+exports.ornaments_update_put = async function(req, res) { 
+    console.log(`update on id ${req.params.id} with body 
+${JSON.stringify(req.body)}`) 
+    try { 
+        let toUpdate = await Ornaments.findById( req.params.id) 
+        // Do updates of properties 
+        if(req.body.OrnamentType)  
+               toUpdate.OrnamentType = req.body.OrnamentType; 
+        if(req.body.OrnamentCost) toUpdate.OrnamentCost = req.body.OrnamentCost; 
+        if(req.body.OrnamentStrength) toUpdate.OrnamentStrength = req.body.OrnamentStrength; 
+        let result = await toUpdate.save(); 
+        console.log("Sucess " + result) 
+        res.send(result) 
+    } catch (err) { 
+        res.status(500) 
+        res.send(`{"error": ${err}: Update for id ${req.params.id} 
+failed`); 
+    } 
 }; 
 
  //VIEWS 
