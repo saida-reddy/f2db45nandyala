@@ -47,8 +47,16 @@ exports.ornaments_create_post = async function(req, res) {
 }; 
  
 // Handle Costume delete form on DELETE. 
-exports.ornaments_delete = function(req, res) { 
-    res.send('NOT IMPLEMENTED: Ornaments delete DELETE ' + req.params.id); 
+exports.ornaments_delete =  async function(req, res) { 
+    console.log("delete "  + req.params.id) 
+    try { 
+        result = await Ornaments.findByIdAndDelete( req.params.id) 
+        console.log("Removed " + result) 
+        res.send(result) 
+    } catch (err) { 
+        res.status(500) 
+        res.send(`{"error": Error deleting ${err}}`); 
+    } 
 }; 
  
 // Handle Costume update form on PUT. 
@@ -84,3 +92,56 @@ exports.ornaments_view_all_Page = async function(req, res) {
         res.send(`{"error": ${err}}`); 
     }   
 }; 
+// Handle a show one view with id specified by query 
+exports.ornaments_view_one_Page = async function(req, res) { 
+    console.log("single view for id "  + req.query.id) 
+    try{ 
+        result = await Ornaments.findById( req.query.id) 
+        res.render('ornamentsdetail',  
+{ title: 'Ornaments Detail', toShow: result }); 
+    } 
+    catch(err){ 
+        res.status(500) 
+        res.send(`{'error': '${err}'}`); 
+    } 
+}; 
+// Handle building the view for creating a costume. 
+// No body, no in path parameter, no query. 
+// Does not need to be async 
+exports.ornaments_create_Page =  function(req, res) { 
+    console.log("create view") 
+    try{ 
+        res.render('ornamentscreate', { title: 'Ornaments Create'}); 
+    } 
+    catch(err){ 
+        res.status(500) 
+        res.send(`{'error': '${err}'}`); 
+    } 
+}; 
+// Handle building the view for updating a costume. 
+// query provides the id 
+exports.ornaments_update_Page =  async function(req, res) { 
+    console.log("update view for item "+req.query.id) 
+    try{ 
+        let result = await Ornaments.findById(req.query.id) 
+        res.render('ornamentsupdate', { title: 'Ornaments Update', toShow: result }); 
+    } 
+    catch(err){ 
+        res.status(500) 
+        res.send(`{'error': '${err}'}`); 
+    } 
+}; 
+// Handle a delete one view with id from query 
+exports.ornaments_delete_Page = async function(req, res) { 
+    console.log("Delete view for id "  + req.query.id) 
+    try{ 
+        result = await Ornaments.findById(req.query.id) 
+        res.render('ornamentsdelete', { title: 'Ornaments Delete', toShow: 
+result }); 
+    } 
+    catch(err){ 
+        res.status(500) 
+        res.send(`{'error': '${err}'}`); 
+    } 
+}; 
+ 

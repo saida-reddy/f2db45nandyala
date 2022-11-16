@@ -1,0 +1,22 @@
+extends layout 
+ 
+block content 
+  h1= title 
+ 
+  - let ornamentsid = toShow._id 
+  - let OrnamentType = toShow.OrnamentType 
+  - let OrnamentCost = toShow.OrnamentCost 
+  - let OrnamentStrength = toShow.OrnamentStrength 
+  div 
+    div.row 
+      div(class='ornamentsAttr mr-3') Ornaments  ID is: 
+      div #{ornamentsid} 
+    div.row 
+      div(class='costumeAttr mr-3') Ornaments  Type is: 
+      div #{OrnamentType} 
+    div.row 
+      div(class='costumeAttr mr-3') Ornaments  Size is: 
+      div #{OrnamentCost} 
+    div.row 
+      div(class='costumeAttr mr-3') Ornaments  Cost is: 
+      div #{OrnamentStrength} 
