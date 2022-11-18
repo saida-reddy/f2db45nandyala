@@ -4,9 +4,11 @@ block content
   h1= title
   - var results = results;
   div(class="container-fluid")
-    div(class="row")
+    div(class="row m-1")
     each item in results
-      div(class="col-sm-2" width="215px") Ornament Type:#{item.OrnamentType}, Ornament Cost:#{item.OrnamentCost}, Ornament Strength:#{item.OrnamentStrength}
+      - let destination = `dispatch(\"/ornaments/update?id=${item._id}\")` 
+      div(class="col-sm-2", class="m-1", width="215px") Ornament Type:#{item.OrnamentType}, Ornament Cost:#{item.OrnamentCost}, Ornament Strength:#{item.OrnamentStrength}
+        button.btn( class="btn-primary ml-1", onclick= destination) Update 
   br
   div(class="container-fluid")
     div(class="row")
@@ -17,3 +19,6 @@ block content
     function buy(indexNum) {
       alert(`You purchased item ${indexNum}`);
     }
+    function dispatch(path){ 
+      window.location.href=path 
+    } 
