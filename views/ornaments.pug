@@ -9,6 +9,8 @@ block content
       - let destination = `dispatch(\"/ornaments/update?id=${item._id}\")` 
       div(class="col-sm-2", class="m-1", width="215px") Ornament Type:#{item.OrnamentType}, Ornament Cost:#{item.OrnamentCost}, Ornament Strength:#{item.OrnamentStrength}
         button.btn( class="btn-primary ml-1", onclick= destination) Update 
+        button.btn( class="btn-success", onclick= detail) Details
+        button.btn( class="btn-danger", onclick= deleteItem) Delete
   br
   div(class="container-fluid")
     div(class="row")
